@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="gbk">
+<title>标题</title>
+<script>
+var n=24;
+function 换图(){
+var a=document.getElementsByClassName("class1");
+n+=1;
+if(n==28){
+n=24;
+a.
+}
+a[0].style.backgroundImage="url("+n+".jpg)";
+}
+function changspeed(){
+var y=document.getElementById("调速").value;
+var z=document.getElementById("neko3");
+y=100-y;
+z.style.animationDuration=y+"00ms";
+z.innerHTML=y;
+}
+</script>
+</head>
+<body class="class1">
+<h1 id="demo" style="color:blue;border:3px solid
+ red;text-align:center;width:300px;position:absolute;left:50%;border-radius:15px/15px">标题</h1>
+<p>段落<b>粗体</b>&nbsp;<i>斜体</i>&nbsp;<s>删除</s>&nbsp;<u>下划线</u>&nbsp;<q>引用</q>log<sub>n</sub>10<br/>
+        x<sup>10<sup><br/><br><strong>视觉标签的加粗就仅仅是加粗，对于机器阅读而言，这样的加粗没有意义。<br>如果是语义标签当中的加粗标签，不但会加粗文本，同时还会起到强调的作用，在机器阅读时，这样的文本就会有更高的分数，会被搜索引擎认为是更加重要的内容</strong></p>
+<!-<p id="nia">文本样式</p>-->
+<a href="http://www.bilibili.com">超链接</a>&nbsp;      <a href="http://www.bilibili.com" target="_blank">超链接空白</a>
+<button onclick="换图()" class="button" style="background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 4px 2px;
+    cursor: pointer;
+    left:90%;
+    top:50%;
+    position:fixed;
+    ">></button>
+<table border="1px">
+	<tr>
+		<th>动物</th>
+		<th>说</th>
+	</tr>
+	<tr>
+		<td>猫</td>
+		<td>喵</td>
+	</tr>
+	<tr>
+		<td>狗</td>
+		<td>汪</td>
+	</tr>
+</table>
+<table border="1px">
+    <tr>
+		<th>动物</th>
+		<th>说</th>
+	</tr>
+	<tr>
+		<td>猫</td>
+		<td rowspan="2">喵</td>
+	</tr>
+    <tr>
+		<td>我</td>
+	</tr>
+	<tr>
+		<td>狗</td>
+		<td>汪</td>
+	</tr>
+</table>
+<ol type="I" Reversed>
+    <li>a</li>
+        <ul>
+            <li>b</li>
+            <li>b</li>
+            <li>b</li>
+            <li>b</li>
+        </ul>
+    <li>a</li>
+    <li>a</li>
+    <li>a</li>
+    <li>a</li>
+</ol>
+<form>
+<input value="输入"><br>
+<input placeholder="只能输8个" maxlength="8">
+<input value="size" size="50"><br>
+<input value="只读" readonly><br>
+<textarea rows=10>多行输入</textarea>
+<input type="button" value="按钮">
+<input type="submit" value="提交">
+<input type="range">
+<input type="number" value="000">
+<input type="checkbox" checked><br>
+<input type="radio" name="b">
+<input type="radio" name="b">
+<input type="radio" name="b">
+<input type="date">
+<input type="color" value="red">
+<input type="file">
+<input type="reset"><br>
+<p>
+<select>
+<option>苹果</option>
+<option>香蕉</option>
+<option>菠萝</option>
+</select></p>
+<img src="http://ww1.sinaimg.cn/large/95fd1bd0gy1fra5fka1cjj20rs0rswka.jpg" width="300px" height="300px" usemap="#a" id="neko2"/>
+</form>
+<map name="a">
+<area href="http://www.bilibili.com" shape="circle" coords="112,86,72" taiget="_blank"/>
+</map>
+<div id="neko3">animation</div>
+
+调速<input type="range" value="20" id="调速" onchange="changspeed()" max=100 min=0><br><br>
+<div id="neko4">transform</div>
+<div id="neko1"></div>
+<style type="text/css">
+#neko1 {
+width:200px;
+height:200px;
+background-color:Lavender;
+opacity:0.6;
+}
+#neko1:hover{
+width:200px;
+height:200px;
+background-color:red;
+transfrom:rotate(45deg);
+transform-origin:bottom right;
+transition-duration:1200ms;
+}
+#neko1:active{
+width:200px;
+height:200px;
+background-color:green;
+transition-duration:500ms;
+}
+#neko2:hover{
+width:400px;
+height:400px;
+transition-delay:10ms;
+-webkit-transition-duration:1000ms;
+/*transition-property:height,width;*/
+}
+.class1{
+background-repeat:contain;
+background-image:url("http://i1.qlshw.org/c94642eaea1fc5d8b04380411ba49df7.jpg");
+background-attachment:fixed;
+}
+#neko3{
+width:200px;
+height:200px;
+position:relative;
+left:0px;
+background-color:Firebrick;
+animation-name:haha;
+animation-duration:8000ms;
+animation-iteration-count:infinite;
+animation-direction:alternate;
+animation-timing-function:ease-in
+}
+@keyframes haha {
+	to {left:900px;background-color:RoyalBlue;opacity:0.5}
+}
+#neko4 {
+width:200px;
+height:200px;
+background-color:yellow;
+opacity:0.5;
+}
+#neko4:hover{
+width:200px;
+height:200px;
+transform:rotate(30deg);
+transition-duration:500ms;
+transform-origin:left bottom;
+}
+p{
+color:yellow;
+}
+</style>
+<script>
+var x=prompt("你的名字是","三叶");
+document.getElementById("demo").innerHTML="你好,"+x;
+</script>
+	<script>
+    //alert('Hello, world');
+    console.log('Hello, world');
+	x=document.getElementById("neko");
+	x.innerHTML="Hello JavaScript!";
+	x.style.width="200px"
+	x.style.height="200px"
+	x.style.backgroundColor="Lavender"
+	y=document.getElementByTagName("img");
+	y[0].style.width="200px"
+	y[0].style.height="200px"
+  	</script>
+</body>
+</html>

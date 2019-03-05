@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>计算器</title>
+
+</head>
+
+<body>
+    <hr>
+    <h1>计算器</h1>
+    <div id="miao">></div>
+    <div id="xixi"></div>
+    <div id="jsq">
+
+    </div>
+
+    <style type="text/css">
+        button {
+            background-color: antiquewhite;
+            border: none;
+            height: 60px;
+            width: 75px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 2px 2px;
+            cursor: pointer;
+            border-radius: 6px;
+            position: relative;
+            float: left;
+        }
+        
+        button:hover {
+            background-color: gold;
+        }
+        
+        botton:active {
+            background-color: red;
+        }
+        
+        input {
+            width: 310px;
+            height: 40px;
+            font-size: 35px;
+            text-align: right;
+            margin-bottom: 4px;
+            border-color: black;
+        }
+        
+        #jsq {
+            background-color: rgb(183, 183, 189);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            position: fixed;
+            left: 40%;
+        }
+        
+        h1 {
+            text-align: center;
+            color: rgb(170, 170, 211);
+        }
+        
+        #miao {
+            width: 40px;
+            height: 60px;
+            background-color: black;
+            opacity: 0.5;
+            color: white;
+            font-size: 30px;
+            text-align: center;
+            line-height: 60px;
+            z-index: 2;
+            right: 0px;
+            top: 320px;
+            position: absolute;
+        }
+        /*img {
+            width: 100%;
+            z-index: -1;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+        }*/
+        
+        #xixi {
+            background-image: url("1.jpg");
+            background-repeat: no-repeat;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            top: 0px;
+            position: absolute;
+            background-size: cover;
+        }
+        
+        @keyframes fade {
+            from {
+                opacity: 0.4
+            }
+            to {
+                opacity: 1
+            }
+        }
+    </style>
+</body>
+</div>
+<script>
+    var a = document.getElementById("jsq");
+    var b = "<input><br>";
+    var c = ["c", "+", "-", "*", "/", "%", ".", "(", ")", "="];
+    for (i = 1; i < 11; i++) {
+        b = b += ("<button>" + i % 10 + "</button>");
+        if (i % 3 == 0) {
+            b += ("<button>" + c[i / 3 - 1] + "</button>" + "<br>");
+        }
+    }
+    for (i = 3; i < c.length; i++) {
+        if (i == 6) {
+            b += "<br>";
+        }
+        b += "<button>" + c[i] + "</button>";
+    }
+    a.innerHTML = b;
+    var d = document.getElementsByTagName("input");
+    var e = document.getElementsByTagName("button");
+    for (i = 0; i < e.length; i++) {
+        e[i].onclick = function() {
+            d[0].value += this.innerHTML;
+        }
+    }
+    e[3].onclick = function() {
+        d[0].value = "";
+    }
+    e[19].onclick = function() {
+        d[0].value = eval(d[0].value);
+    }
+
+    function Drag() {
+        oDiv = document.getElementById('jsq');
+        oDiv.onmousedown = fnDown;
+    }
+
+    function fnDown(ev) {
+        var oEvent = ev || event;
+        disX = oEvent.clientX - oDiv.offsetLeft;
+        disY = oEvent.clientY - oDiv.offsetTop;
+        document.onmousemove = fnMove;
+        document.onmouseup = fnUp;
+        oDiv.setCapture && oDiv.setCapture();
+        return false;
+    }
+
+    function fnMove(ev) {
+        var oEvent = ev || event;
+        oDiv.style.left = oEvent.clientX - disX + 'px';
+        oDiv.style.top = oEvent.clientY - disY + 'px';
+    }
+
+    function fnUp() {
+        document.onmousemove = null;
+        document.onmouseup = null;
+        oDiv.releaseCapture && oDiv.releaseCapture();
+    }
+    window.onload = function() {
+        new Drag();
+    };
+    var g = [
+        // 'http://i3.qlshw.org/16089d30a9d25e9f38381a66613affed.jpg',
+        // 'http://i1.qlshw.org/c94642eaea1fc5d8b04380411ba49df7.jpg',
+        // 'http://i3.qlshw.org/cd80cb0c0f20b96d52e72d41f2c38868.jpg',
+        // 'http://i1.qlshw.org/eb6c6d355ff42c948d86df3c6cd2fe43.jpg',
+        // 'http://i3.qlshw.org/e9390aedc1735ca872954709158707d4.jpg',
+        // 'http://i2.qlshw.org/b7966dabfd07263d80a9a8fa1f704b0a.jpg',
+        // 'http://i3.qlshw.org/e94dec23870fbf71697eb579340c21bd.jpg',
+        // 'http://i2.qlshw.org/8edae624d81a807c5e46c27528530024.jpg',
+        // 'http://i2.qlshw.org/6b6ca4b4d556b95b65679f73c603acf8.jpg',
+        // 'http://i4.qlshw.org/5be3c1f79ec75e34fc4c6c4f37b0f00b.jpg',
+        // 'http://i2.qlshw.org/7e33e12f6023162eb83adbb7d7a312d2.jpg',
+        // 'http://i4.qlshw.org/1a203b067563cc3d9adb5f6dc40e7469.jpg',
+        '1.jpg',
+        '2.jpg',
+        '3.jpg',
+    ];
+    var h = document.getElementById("miao");
+    var f = 1;
+    var j = document.getElementById("xixi");
+    j.style.animationDuration = "1000ms";
+    /*function hell() {
+        if (document.documentElement.clientHeight / document.documentElement.clientWidth > j.offsetHeight / j.offsetWidth) {
+            j.style.height = "100%";
+            j.style.width = "auto";
+        } else {
+            j.style.width = "100%";
+            j.style.height = "auto";
+        }
+    }
+    window.onload = function() {
+        hell();
+    }
+    window.addEventListener("resize", function() {
+        hell();
+    })*/
+    h.onclick = function() {
+            j.style.animationName = "faded";
+            setTimeout(function() {
+                j.style.animationName = "fade";
+            }, 1);
+            j.style.backgroundImage = "url(" + g[f] + ")";
+            f++;
+            if (f == g.length) {
+                f = 0;
+            }
+            // hell();
+        }
+        //alert(document.getElementById("jsq").offsetHeight);
+</script>
+</body>
+
+</html>

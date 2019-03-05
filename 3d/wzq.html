@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>五子棋</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r79/three.min.js"></script>
+    <script src="TrackballControls.js"></script>
+    <script type="text/javascript" src="dat.gui.min.js"></script>
+    <style>
+        canvas {
+            width: 100%;
+            height: 200%
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        document.onkeyup=function(event){
+            var e=event?event:window.event;
+                var a=e.keyCode;
+                
+                //alert(a);
+                switch (a){
+                    case 68:cube.position.x+=5;
+                    
+                    break;
+                    case 65:cube.position.x-=5;
+                    
+                    break;
+                    case 87:cube.position.y+=5;
+                    
+                    break;
+                    case 83:cube.position.y-=5;
+                    
+                    break;
+                    case 81:cube.position.z+=5;
+                    
+                    break;
+                    case 69:cube.position.z-=5;
+                    
+                    break;
+                    case 13:controls.下棋();
+                }
+                controls.x=cube.position.x/5;
+                controls.y=cube.position.y/5;
+                controls.z=cube.position.z/5;
+        }
+        var yuki=[];
+        var tuki=[];
+        var who=false;
+        for (let i = 0; i <=12; i++) {
+            yuki[i] = [];
+            tuki[i] = [];
+            for(let j = 0; j <=12; j++){
+                yuki[i][j] = [];
+                tuki[i][j] = [];
+                for(let k = 0; k <=12; k++){
+                    yuki[i][j][k]=0;
+                    tuki[i][j][k]=0;
+                }
+            }
+        }
+        function checkwin(arr,x,y,z){
+            let nya=0;
+                        for(let i=1;i<=12;i++){
+                            
+                            nya+=arr[x+6][y+6][i];
+                            nya*=arr[x+6][y+6][i];
+                            if(nya==5)
+                            {
+                                alert("你赢了");
+                                return 0;
+                            }
+                        }
+                        nya=0;
+                        for(let i=1;i<=12;i++){
+        
+                            nya+=arr[i][y+6][z+6];
+                            nya*=arr[i][y+6][z+6];
+                            if(nya==5)
+                            {
+                                alert("你赢了");
+                                return 0;
+                            }
+                        }
+                        nya=0;
+                        for(let i=1;i<=12;i++){
+        
+                            nya+=arr[x+6][i][z+6];
+                            nya*=arr[x+6][i][z+6];
+                            if(nya==5)
+                            {
+                                alert("你赢了");
+                                return 0;
+                            }
+                        }
+                        nya=0
+
+                        for(let i=1;;i++){
+                            try{
+                            if(arr[x+6+i][y+6+i][z+6]!=1){
+                                break;
+                            }
+                            nya++;
+                            }
+                            catch(err){
+                                console.log(err);
+                                break;
+                            }
+                        }
+                        for(let i=1;;i++){
+                            try{
+                            if(arr[x+6-i][y+6-i][z+6]!=1){
+                                break;
+                            }
+                            nya++;
+                            }
+                            catch(err){
+                                console.log(err);
+                                break;
+                            }
+                        }
+                        if(nya>=4){
+                            alert("你赢了1");
+                            return 0;
+                        }//xy正斜
+
+                        nya=0;
+                        for(let i=1;;i++){
+                            try{
+                            if(arr[x+6-i][y+6+i][z+6]!=1){
+                                break;
+                            }
+                            nya++;
+                            }
+                            catch(err){
+                                console.log(err);
+                                break;
+                            }
+                        }
+                        for(let i=1;;i++){
+                            try{
+                            if(arr[x+6+i][y+6-i][z+6]!=1){
+                                break;
+                            }
+                            nya++;
+                            }
+                            catch(err){
+                                console.log(err);
+                                break;
+                            }
+                        }
+                        if(nya>=4){
+                            alert("你赢了2");
+                            return 0;
+                        }//xy反斜
+
+                        nya=0;
+                        for(let i=1;;i++){
+                            console.log(nya);
+                            try{
+                            if(arr[x+6][y+6+i][z+6+i]!=1){
+                                break;
+                            }
+                            nya++;
+                            }
+                            catch(err){
+                                console.log(err);
+                                break;
+                            }
+                        }
+                        for(let i=1;;i++){
+                            try{
+                            console.log(arr[x+6][y+6-i][z+6-i]);
+                            if(arr[x+6][y+6-i][z+6-i]!=1){
+                                break;
+                            }
+                            nya++;
+                            }
+                            catch(err){
+                                console.log(err);
+                                break;
+                            }
+                        }
+                        if(nya>=4){
+                            alert("你赢了3");
+                            return 0;
+                        }//yz正斜
+
+                        nya=0;
+                        for(let i=1;;i++){
+                            try{
+                            if(arr[x+6][y+6+i][z+6-i]!=1){
+                                break;
+                            }
+                            nya++;
+                            }
+                            catch(err){
+                                console.log(err);
+                                break;
+                            }
+                        }
+                        for(let i=1;;i++){
+                            try{
+                            if(arr[x+6][y+6-i][z+6+i]!=1){
+                                break;
+                            }
+                            nya++;
+                            }
+                            catch(err){
+                                console.log(err);
+                                break;
+                            }
+                        }
+                        if(nya>=4){
+                            alert("你赢了4");
+                            return 0;
+                        }//yz正斜
+
+                        nya=0;
+
+                        for(let i=1;;i++){
+                            try{
+                            if(arr[x+6+i][y+6][z+6+i]!=1){
+                                break;
+                            }
+                            nya++;
+                            }
+                            catch(err){
+                                console.log(err);
+                                break;
+                            }
+                        }
+                        for(let i=1;;i++){
+                            try{
+                            if(arr[x+6-i][y+6][z+6-i]!=1){
+                                break;
+                            }
+                            nya++;
+                            }
+                            catch(err){
+                                console.log(err);
+                                break;
+                            }
+                        }
+                        if(nya>=4){
+                            alert("你赢了5");
+                            return 0;
+                        }//xz正斜
+
+                        nya=0;
+                        for(let i=1;;i++){
+                            try{
+                            if(arr[x+6-i][y+6][z+6+i]!=1){
+                                break;
+                            }
+                            nya++;
+                            }
+                            catch(err){
+                                console.log(err);
+                                break;
+                            }
+                        }
+                        for(let i=1;;i++){
+                            try{
+                            if(arr[x+6+i][y+6][z+6-i]!=1){
+                                break;
+                            }
+                            nya++;
+                            }
+                            catch(err){
+                                console.log(err);
+                                break;
+                            }
+                        }
+                        if(nya>=4){
+                            alert("你赢了6");
+                            return 0;
+                        }//xz反斜
+                        nya=0;
+                        for(let i=1;;i++){
+                            try{
+                            if(arr[x+6+i][y+6+i][z+6+i]!=1){
+                                break;
+                            }
+                            nya++;
+                            }
+                            catch(err){
+                                console.log(err);
+                                break;
+                            }
+                        }
+                        for(let i=1;;i++){
+                            try{
+                            if(arr[x+6-i][y+6-i][z+6-i]!=1){
+                                break;
+                            }
+                            nya++;
+                            }
+                            catch(err){
+                                console.log(err);
+                                break;
+                            }
+                        }
+                        if(nya>=4){
+                            alert("你赢了");
+                            return 0;
+                        }//对角线1
+                        nya=0;
+                        for(let i=1;;i++){
+                            try{
+                            if(arr[x+6+i][y+6-i][z+6+i]!=1){
+                                break;
+                            }
+                            nya++;
+                            }
+                            catch(err){
+                                console.log(err);
+                                break;
+                            }
+                        }
+                        for(let i=1;;i++){
+                            try{
+                            if(arr[x+6-i][y+6+i][z+6-i]!=1){
+                                break;
+                            }
+                            nya++;
+                            }
+                            catch(err){
+                                console.log(err);
+                                break;
+                            }
+                        }
+                        if(nya>=4){
+                            alert("你赢了");
+                            return 0;
+                        }//对角线2
+                        nya=0;
+                        for(let i=1;;i++){
+                            try{
+                            if(arr[x+6-i][y+6-i][z+6+i]!=1){
+                                break;
+                            }
+                            nya++;
+                            }
+                            catch(err){
+                                console.log(err);
+                                break;
+                            }
+                        }
+                        for(let i=1;;i++){
+                            try{
+                            if(arr[x+6+i][y+6+i][z+6-i]!=1){
+                                break;
+                            }
+                            nya++;
+                            }
+                            catch(err){
+                                console.log(err);
+                                break;
+                            }
+                        }
+                        if(nya>=4){
+                            alert("你赢了");
+                            return 0;
+                        }//对角线3
+                        nya=0;
+                        for(let i=1;;i++){
+                            try{
+                            if(arr[x+6-i][y+6+i][z+6+i]!=1){
+                                break;
+                            }
+                            nya++;
+                            }
+                            catch(err){
+                                console.log(err);
+                                break;
+                            }
+                        }
+                        for(let i=1;;i++){
+                            try{
+                            if(arr[x+6+i][y+6-i][z+6-i]!=1){
+                                break;
+                            }
+                            nya++;
+                            }
+                            catch(err){
+                                console.log(err);
+                                break;
+                            }
+                        }
+                        if(nya>=4){
+                            alert("你赢了");
+                            return 0;
+                        }//对角线4
+                        return 1;
+
+            
+        }
+        var scene = new THREE.Scene();
+
+        var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+        var renderer = new THREE.WebGLRenderer();
+
+        var raycaster = new THREE.Raycaster();
+
+        
+        
+
+        document.body.appendChild(renderer.domElement);
+
+                var controls=new function(){
+                    this.a=function(){}
+                    this.x=0;
+                    this.y=0;
+                    this.z=0;
+                    this.下棋=function(){
+                        var sphereGeometry = new THREE.SphereGeometry(1, 20, 20);
+                        var sphereMaterial0 = new THREE.MeshPhongMaterial({
+                            color: 0xff0000,
+
+        });
+                        var  sphereMaterial1 = new THREE.MeshPhongMaterial({
+                            color: 0x0000ff,
+   
+        });
+                        if(who){
+                        var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial0);
+                        }
+                        else{
+                        var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial1);
+                        }
+                        if(Math.abs(this.x)>6||Math.abs(this.y)>6||Math.abs(this.z)>6){
+                            alert("不能下在棋盘外");
+                            return 0;
+                        }
+                        if(yuki[this.x+6][this.y+6][this.z+6]!=1&&tuki[this.x+6][this.y+6][this.z+6]!=1){
+
+                        sphere.castShadow = true;
+                        sphere.position.x = 5*this.x;
+                        sphere.position.y = 5*this.y;
+                        sphere.position.z = 5*this.z;
+                        
+                        scene.add(sphere);
+                        who=!who;
+                    }
+                        else{
+                            alert("不能重复落子");
+                            return 0;
+                        }
+                        if(who){
+                            yuki[this.x+6][this.y+6][this.z+6]=1;
+                            hana=checkwin(yuki,this.x,this.y,this.z);
+                        }
+                        else{
+                            tuki[this.x+6][this.y+6][this.z+6]=1;
+                            hana=checkwin(tuki,this.x,this.y,this.z);
+                        }
+                        if(hana==0){
+                            window.location.reload();
+                        }
+
+
+                    
+                }
+            }
+                var gui = new dat.GUI();
+                gui.add(controls,'a').name('ADWSQE移动');
+                gui.add(controls,'a').name('回车落子');
+                gui.add(controls,'x').step(1);
+                gui.add(controls,'y').step(1);
+                gui.add(controls,'z').step(1);
+                gui.add(controls,'下棋');
+
+      
+        var trackballControls = new THREE.TrackballControls(camera,renderer.domElement);
+        trackballControls.rotateSpeed = 1.0;
+        trackballControls.zoomSpeed = 1.0;
+        trackballControls.panSpeed = 1.0;
+        renderer.setSize(window.innerWidth, window.innerHeight);
+                
+                var geometry = new THREE.Geometry();
+                geometry.vertices.push( new THREE.Vector3( - 30, 0, 0 ) );
+                geometry.vertices.push( new THREE.Vector3( 30, 0, 0 ) );
+                for (let j=0;j<=12;j++){
+                    for ( let i = 0; i<=12; i ++ ) {
+
+                        var line = new THREE.Line( geometry, new THREE.LineBasicMaterial( { color: 0xffffff, opacity: 1 } ) );
+                        line.position.z = ( i * 5 ) - 30;
+                        line.position.y=  ( j * 5 ) - 30;
+                        scene.add( line );
+
+                        var line = new THREE.Line( geometry, new THREE.LineBasicMaterial( { color: 0xffffff, opacity: 1 } ) );
+                        line.position.x = ( i * 5 ) - 30;
+                        line.rotation.y = 90 * Math.PI / 180;
+                        line.position.y=  ( j * 5 ) - 30;
+                        scene.add( line );
+
+                        var line = new THREE.Line( geometry, new THREE.LineBasicMaterial( { color: 0xffffff, opacity: 1 } ) );
+                        line.position.x = ( i * 5 ) - 30;
+                        line.position.z=  ( j * 5 ) - 30;
+                        line.rotation.z = 90 * Math.PI / 180;
+                        scene.add( line );
+                        }
+                }
+        var cubeGeometry = new THREE.SphereGeometry(1);
+
+        var cubeMaterial = new THREE.MeshBasicMaterial({color: 0x00ff00, wireframe: true});
+        var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+ 
+        cube.position.x = 0;
+        cube.position.y = 0;
+        cube.position.z = 0;
+ 
+     
+        scene.add(cube);
+       
+        var directionalLight = new THREE.DirectionalLight(0xffffff, 2);
+        directionalLight.position.set(3, 3, 10);
+        directionalLight.shadowCameraLeft = -10
+        directionalLight.shadowCameraRight = 15
+        directionalLight.shadowCameraTop = 10
+        directionalLight.shadowCameraBottom = -10;
+        directionalLight.castShadow = true;
+        scene.add(directionalLight);
+
+        var axes = new THREE.AxisHelper(10);
+        scene.add(axes);
+        camera.position.z = 5;
+        var clock = new THREE.Clock();
+        function render() {
+            var delta = clock.getDelta();
+            trackballControls.update(delta);
+            requestAnimationFrame(render);
+            renderer.render(scene, camera);
+        }
+        render();
+
+
+    </script>
+</body>
+
+</html>

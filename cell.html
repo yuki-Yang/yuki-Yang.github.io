@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> -->
+    <script src="game.js"></script>
+</head>
+
+<body>
+    <button onclick="chage(false)">停止</button>
+    <button onclick="chage(true)">继续</button>生存
+    <input value="b==3">死亡
+    <input value="b<2||b>3">改变状态
+    <input value="false">
+
+    <button onclick="miao()">改变规则</button>
+    <button onclick="jiji()">清除</button>
+    <input value="15" onchange="wang()" type=number>
+</body>
+<script>
+    var a = [];
+    var c = [];
+    var d = [];
+    var b;
+    var str = false;
+    var game = new Game(400, 200, 6, 15, "#000", "#ffffff");
+    game.run = false;
+    game.showLine();
+
+
+    var yuki = ["b==3", "b<2||b>3", "false"];
+    let chage = data => {
+        game.changeStatus(data);
+    };
+    let miao = () => {
+        for (let i = 0; i < 3; i++) {
+            yuki[i] = document.getElementsByTagName("input")[i].value
+        }
+
+    }
+    let wang = () => {
+
+    }
+    let jiji = () => {
+        for (let i = 0; i < game.h; i++) {
+            for (let j = 0; j < game.w; j++) {
+                a[i][j] = false;
+                c[i][j] = false;
+
+            }
+        }
+    }
+    for (let i = 0; i < game.h; i++) {
+        a[i] = [];
+        for (let j = 0; j < game.w; j++) {
+            a[i][j] = false;
+
+
+        }
+    }
+    for (let i = 0; i < game.h; i++) {
+        d[i] = [];
+        for (let j = 0; j < game.w; j++) {
+            d[i][j] = false;
+        }
+    }
+    for (let i = 0; i < game.h; i++) {
+        c[i] = [];
+
+        for (let j = 0; j < game.w; j++) {
+            c[i][j] = false;
+            // if (i == 0 || j == 0 || i == game.h - 1 || j == game.w - 1) {
+            //     c[i][j] = true;
+            // }
+        }
+    }
+    var lifeordie = (event) => {
+        let d = parseInt((event.clientY + window.scrollY - game.c.offsetTop) / game.z);
+        let f = parseInt((event.clientX + window.scrollX - game.c.offsetLeft) / game.z);
+        a[d][f] = !c[d][f];
+        c[d][f] = !c[d][f];
+        game.freact(f, d, 1, 1, "red");
+
+    }
+    game.c.onmousedown = () => {
+        str = true;
+        lifeordie(event);
+
+    }
+    game.c.onmouseup = () => {
+        str = false;
+    }
+    game.c.onmousemove = (event) => {
+        if (str == true) {
+            lifeordie(event);
+        }
+    }
+    var life = (b) => {
+        return eval(yuki[0]);
+    }
+    var die = (b) => {
+        return eval(yuki[1]);
+    }
+    var shift = (b) => {
+        return eval(yuki[2]);
+    }
+    console.log(document.getElementsByTagName("input")[0].value)
+    game.init(() => {
+
+        game.clean(0, 0, game.w, game.h);
+        for (var i = 1; i < game.h - 1; i++) {
+            for (var j = 1; j < game.w - 1; j++) {
+                b = a[i - 1][j] + a[i - 1][j - 1] + a[i - 1][j + 1] + a[i][j - 1] + a[i][j + 1] + a[i + 1][j - 1] + a[i + 1][j] + a[i + 1][j + 1];
+                if (life(b)) {
+                    c[i][j] = true;
+                }
+                if (die(b)) {
+                    c[i][j] = false;
+                }
+                // if (b < 1 || b > 3) {
+                //     c[i][j] = false;
+                // }
+                if (shift(b)) {
+                    c[i][j] = !c[i][j];
+                }
+                if (c[i][j] == true) {
+                    game.freact(j, i, 1, 1, "red");
+                }
+
+
+            }
+        }
+        for (let i = 1; i < game.h - 1; i++) {
+
+            for (let j = 1; j < game.w - 1; j++) {
+                a[i][j] = c[i][j];
+            }
+        }
+
+
+        game.showLine();
+    })
+</script>
+
+</html>
