@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>井子棋</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> -->
+    <script src="下棋.js"></script>
+</head>
+<style>
+    .container {
+                /* width:340px;
+                height:320px; */
+                margin:10px auto;
+                /* padding-left:10px;
+                padding-top:20px; */
+                border:2px solid #ccc;         
+    }         
+    .cells {
+                display: block;
+                float:left;
+                width:80px;
+                height:80px;
+                /* margin-left: 20px;
+                margin-bottom: 20px; */
+                border:2px solid #ccc;
+                color:#777;
+                text-decoration: none;
+                font-size: 20px;
+                line-height:40px;    
+                text-align: center;      
+    }
+    </style>
+    <body>
+    <script>
+    var tsuki=new neko(40,3,3,1);
+    tsuki.draw();
+    </script>
+    </body>
+    </html>
